@@ -85,3 +85,17 @@ CrimeData* getCrimesInRadius(const CrimeData* crimeData, int dataSize, double ta
 
     return crimesInRadius;
 }
+
+// Function to display crime data
+void displayCrimeData(const CrimeData* crimes, int size) {
+    std::cout << "Crimes within the specified radius:" << std::endl;
+    if (size == 0) {
+        std::cout << "No crimes found within the specified radius.\n";
+    }
+    else {
+        for (int i = 0; i < size; ++i) {
+            std::cout << "Location: " << crimes[i].location << "\nType:\t   " << crimes[i].type << "\n___________________________________________\n";
+        }
+    }
+}
+
