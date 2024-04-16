@@ -14,7 +14,53 @@ struct CrimeData {
     double longitude;
     
 };
+int main() {
+    const int MAX_CRIMES = 1000; // Maximum number of crimes
+    CrimeData* crimeData = new CrimeData[MAX_CRIMES]; // Array to store crime data
+    int dataSize = MAX_CRIMES; // Number of elements in the array
+    loadCrimeData("crime_data.txt", crimeData, dataSize);
 
+    // Get coordinates from the user
+    double latitude = 0, longitude = 0, radius;
+    std::string loc;
+    std::cout << "Enter the location: ";
+    std::cin >> loc;
+    std::cout << "Enter the radius (in kilometers): ";
+    std::cin >> radius;
+    if (loc == "Kitchener") {
+        latitude = 43.4514;
+        longitude = -80.4923;
+    }
+    else if (loc == "Waterloo") {
+        latitude = 43.4654;
+        longitude = -80.5278;
+    }
+    else if (loc == "Chicopee") {
+        latitude = 43.4391;
+        longitude = -80.4477;
+    }
+    else if (loc == "Guelph") {
+        latitude = 43.5326;
+        longitude = -80.2255;
+    }
+    else if (loc == "Cambridge") {
+        latitude = 43.3703;
+        longitude = -80.3140;
+    }
+
+    // Get crimes within the specified radius
+    int resultSize = 0;
+    CrimeData* crimes = getCrimesInRadius(crimeData, dataSize, latitude, longitude, radius, resultSize);
+
+    // Display crime data
+    displayCrimeData(crimes, resultSize);
+
+    // Clean up dynamically allocated memory
+    delete[] crimeData;
+    delete[] crimes;
+
+    return 0;
+}
 // Function to load crime data from a text file
 void loadCrimeData(const std::string& filename, CrimeData*& crimeData, int& dataSize) {
     std::ifstream file(filename);
